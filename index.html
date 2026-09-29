@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Review your results · Vals Smith | Model pick evidence packet</title>
+<meta name="description" content="Prototype: buyer-facing model pick evidence packet with cited per-task grades, confidence, cost and latency, and a ship vs Human Review gate. Synthetic demo data.">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">
+      <span class="brand-mark" aria-hidden="true"></span>
+      <span class="brand-name">Vals</span>
+      <span class="brand-product">Smith</span>
+    </div>
+    <nav class="tabs" role="tablist" aria-label="Platform sections">
+      <button class="tab" data-view="results" role="tab">Results</button>
+      <button class="tab" data-view="packet" role="tab" aria-selected="true">Evidence packet</button>
+      <button class="tab" data-view="review" role="tab">Human Review</button>
+      <button class="tab inert" data-inert="Test Suites" role="tab">Test Suites</button>
+      <button class="tab inert" data-inert="Acid Test" role="tab">Acid Test</button>
+      <button class="tab inert" data-inert="Traces" role="tab">Traces</button>
+    </nav>
+    <div class="topbar-badges">
+      <span class="pill pill-private" title="Run is not visible to others">Private</span>
+      <span class="pill pill-demo" title="All runs are synthetic fixtures. No model APIs were billed.">Synthetic demo data</span>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- ============ EVIDENCE PACKET VIEW ============ -->
+  <section class="view" id="view-packet" data-viewpane="packet" aria-label="Evidence packet">
+    <div class="crumb">Vals Smith <span class="crumb-sep">/</span> Review your results <span class="crumb-sep">/</span> <span id="crumb-suite">Northbridge FinOps v1</span></div>
+
+    <div class="packet-head">
+      <div>
+        <h1 class="packet-title">Model pick evidence packet</h1>
+        <p class="packet-sub">Cited grades for a buyer decision. Every grade links to a check, a task, and an evidence pointer.</p>
+      </div>
+      <div class="suite-meta">
+        <span class="pill pill-suite">Test Suite: Northbridge FinOps v1</span>
+        <span class="pill">6 tests</span>
+        <span class="pill">18 checks</span>
+        <span class="pill">harness v0.9</span>
+      </div>
+    </div>
+
+    <div class="scenario-cards" id="scenario-cards" aria-label="Load a synthetic eval run"></div>
+
+    <div id="gate-banner"></div>
+
+    <div class="packet-grid">
+      <div class="packet-main">
+        <div id="recommendation"></div>
+        <div id="headtohead"></div>
+        <div id="task-table"></div>
+      </div>
+      <aside class="packet-side">
+        <div id="cost-latency"></div>
+        <div id="gate-criteria"></div>
+        <div id="rubric-card"></div>
+      </aside>
+    </div>
+
+    <div id="eval-summary"></div>
+
+    <p class="footer-note">
+      Prototype for the Smith Review-your-results surface. Synthetic fixture data only; no real model APIs,
+      no customer repos, no signed-in Vals access. Terminology follows Vals docs: Pass Rate, Success Rate,
+      Low Confidence, Check, Test Suite, Run, Compare, Human Review, per-task breakdown, harness.
+    </p>
+  </section>
+
+  <!-- ============ RESULTS VIEW ============ -->
+  <section class="view hidden" id="view-results" data-viewpane="results" aria-label="Results">
+    <div class="results-head">
+      <div>
+        <h1 class="results-title">Results</h1>
+        <p class="results-sub">Runs from the Northbridge FinOps v1 harness. Select two runs from the same Test Suite to Compare, or open the evidence packet for a scenario.</p>
+      </div>
+      <button class="btn btn-primary" id="btn-compare" disabled>Compare selected runs</button>
+    </div>
+    <div class="filter-chips" aria-label="Filters">
+      <span class="chip chip-active">All runs</span>
+      <span class="chip">Model: A</span>
+      <span class="chip">Model: B</span>
+      <span class="chip">Status: Completed</span>
+      <span class="chip">Has Low Confidence Checks</span>
+    </div>
+    <div class="table-card">
+      <table class="runs-table">
+        <thead>
+          <tr>
+            <th class="col-check"><input type="checkbox" id="select-all" aria-label="Select all runs"></th>
+            <th>Run</th>
+            <th>Test Suite</th>
+            <th>Model</th>
+            <th>Pass Rate</th>
+            <th>Success Rate</th>
+            <th>Low Confidence</th>
+            <th>Status</th>
+            <th>Run By</th>
+            <th>Run Date</th>
+            <th>Cost</th>
+            <th>p95 Latency</th>
+          </tr>
+        </thead>
+        <tbody id="runs-tbody"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ============ HUMAN REVIEW VIEW ============ -->
+  <section class="view hidden" id="view-review" data-viewpane="review" aria-label="Human Review">
+    <div class="results-head">
+      <div>
+        <h1 class="results-title">Human Review</h1>
+        <p class="results-sub">Runs the harness says not to ship on autopilot. Escalated from the model pick gate.</p>
+      </div>
+    </div>
+    <div id="review-queue"></div>
+  </section>
+
+</main>
+
+<div id="toast" class="toast hidden" role="status"></div>
+
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
